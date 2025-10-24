@@ -4,7 +4,7 @@ import { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 
 import { Toaster } from '@/components/ui/toaster';
-import { MockProvider } from '@/contexts/mock-context';
+import PwaScript from '@/components/common/PwaScript';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -58,8 +58,9 @@ export default async function Layout({ children }: { children: React.ReactNode }
         <link rel='mask-icon' href='/android-chrome-192x192.png' color='#0f172a' />
       </head>
       <body className={inter.className} suppressHydrationWarning>
-        <MockProvider>{children}</MockProvider>
+        {children}
         <Toaster />
+        <PwaScript />
       </body>
     </html>
   );
