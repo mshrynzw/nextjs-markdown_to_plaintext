@@ -1,0 +1,40 @@
+import type { Notification, Setting } from '@/schemas';
+
+export const initialNotifications: Notification[] = [
+  {
+    id: '1',
+    user_id: '1',
+    type: 'warning',
+    title: '給与承認',
+    message: '給与の承認が必要です',
+    priority: 'normal',
+    is_read: false,
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    expires_at: new Date(Date.now() + 1000 * 60 * 60 * 24).toISOString(),
+  },
+  {
+    id: '2',
+    user_id: '1',
+    type: 'info',
+    title: '休暇申請の承認完了',
+    message: '休暇の申請が承認されました',
+    priority: 'normal',
+    is_read: false,
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    expires_at: new Date(Date.now() + 1000 * 60 * 60 * 24).toISOString(),
+  },
+  {
+    id: '3',
+    user_id: '1',
+    type: 'error',
+    title: '勤怠のエラー',
+    message: '勤怠の未入力があります',
+    priority: 'urgent',
+    is_read: true,
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    expires_at: new Date(Date.now() + 1000 * 60 * 60 * 24).toISOString(),
+  },
+];

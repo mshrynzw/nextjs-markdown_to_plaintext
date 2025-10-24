@@ -1,0 +1,52 @@
+# Cursor Rules for timeport-v4_payroll
+
+## Code Style
+
+- Use single quotes, avoid the use of double quotes and use consistent string literals to improve readability.
+- Use TypeScript for all new files and components
+- Follow React best practices and functional components with hooks
+- Use Tailwind CSS for styling
+- Prefer const assertions and type safety
+
+## Project Structure
+
+- Components should be placed in the `components/` directory
+- Admin components go in `components/app/admin/`
+- Member components go in `components/app/member/`
+- Common components go in `components/common/`
+- UI components go in `components/ui/`
+- Use proper file naming with PascalCase for components
+
+## Code Organization
+
+- Keep components small and focused on single responsibility
+- Use proper TypeScript interfaces and types
+- Follow the existing schema structure in `schemas/`
+- Use the existing utility functions in `lib/utils/`
+
+## Next.js Specific
+
+- Use App Router structure
+- Place pages in appropriate route directories
+- Use proper metadata and SEO practices
+- Follow Next.js 13+ conventions
+
+## Database and API
+
+- Follow the existing schema patterns in `schemas/database/`
+- Use proper error handling for API calls
+- Implement proper loading states
+
+## UI/UX Guidelines
+
+- Maintain consistent design patterns
+- Use the existing UI component library
+- Ensure responsive design for mobile and desktop
+- Follow accessibility best practices
+
+## Code Quality
+
+- Write clean, readable code
+- Add proper comments for complex logic
+- Use meaningful variable and function names
+- Follow the existing code patterns in the project
