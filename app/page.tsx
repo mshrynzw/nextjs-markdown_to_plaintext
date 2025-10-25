@@ -1,32 +1,55 @@
 'use client';
-import { Clock } from 'lucide-react';
+import { FileType2 } from 'lucide-react';
 import { useState, useCallback } from 'react';
 
 import Particles from '@/components/common/Particles';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import MarkdownTextArea from '@/components/app/MarkdownTextArea';
-import PlainTextArea from '@/components/app/PlainTextArea';
+import ContentDesktop from '@/components/app/ContentDesktop';
+import ContentMobile from '@/components/app/ContentMobile';
 import { markdownToPlainText } from '@/lib/markdown/to-plain-text';
+import { useToast } from '@/hooks/use-toast';
+import { useActiveTab } from '@/contexts/active-tab-context';
 
 export default function Page() {
-  const [markdown, setMarkdown] = useState('Paste Markdown');
-  const [plainText, setPlainText] = useState('Copy PlainText');
+  const [markdown, setMarkdown] = useState('');
+  const [plainText, setPlainText] = useState('');
+  const { setActiveTab } = useActiveTab();
+  const { toast } = useToast();
 
   const handlePaste = useCallback(async () => {
     try {
       const text = await navigator.clipboard.readText();
       setMarkdown(text);
       setPlainText(markdownToPlainText(text));
+      setActiveTab('plaintext');
+      toast({
+        title: 'Markdown pasted',
+        description: 'Markdown has been pasted to the textarea',
+      });
     } catch (err) {
       console.error('Failed to read clipboard contents: ', err);
+      toast({
+        title: 'Failed to paste Markdown',
+        description: 'Failed to paste Markdown to the textarea',
+        variant: 'destructive',
+      });
     }
   }, []);
 
   const handleCopy = useCallback(async () => {
     try {
       await navigator.clipboard.writeText(plainText);
+      toast({
+        title: 'PlainText copied',
+        description: 'PlainText has been copied to the clipboard',
+      });
     } catch (err) {
       console.error('Failed to copy text: ', err);
+      toast({
+        title: 'Failed to copy PlainText',
+        description: 'Failed to copy PlainText to the clipboard',
+        variant: 'destructive',
+      });
     }
   }, [plainText]);
 
@@ -45,37 +68,40 @@ export default function Page() {
         <Particles />
       </div>
 
-      {/* Login Card */}
+      {/* Title */}
       <Card className='w-full h-full relative z-10 bg-white/10 border-white/20 shadow-2xl flex flex-col'>
-        <CardHeader className='text-center pb-4 flex-shrink-0'>
-          {/* Logo with Glow Effect */}
+        <CardHeader className='hidden lg:block text-center pb-4 flex-shrink-0'>
           <div className='flex justify-center'>
             <div className='relative flex flex-row space-x-4 items-center'>
               <div className='absolute inset-0 w-20 h-20 bg-gradient-to-r from-blue-400 to-indigo-500 rounded-full blur-lg opacity-60'></div>
               <div className='relative w-20 h-20 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-lg'>
-                <Clock className='w-10 h-10 text-white' />
+                <FileType2 className='w-10 h-10 text-white' />
               </div>
-              <CardTitle className='text-3xl font-bold bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent'>
+              <CardTitle className='hidden md:block text-3xl font-bold bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent'>
                 Markdown To PlainText
               </CardTitle>
             </div>
           </div>
         </CardHeader>
-        <CardContent className='flex-1 flex flex-row w-full justify-stretch space-x-2 p-6 overflow-hidden'>
-          <div className='flex-1 w-1/2 h-full overflow-hidden'>
-            <MarkdownTextArea
-              className='h-full custom-scrollbar'
-              markdown={markdown}
-              onPaste={handlePaste}
-            />
-          </div>
-          <div className='flex-1 w-1/2 h-full overflow-hidden'>
-            <PlainTextArea
-              className='h-full custom-scrollbar'
-              plainText={plainText}
-              onCopy={handleCopy}
-            />
-          </div>
+
+        {/* Converter Desktop */}
+        <CardContent className='flex-1 hidden lg:flex flex-row w-full justify-stretch space-x-2 p-6 overflow-hidden'>
+          <ContentDesktop
+            markdown={markdown}
+            plainText={plainText}
+            handlePaste={handlePaste}
+            handleCopy={handleCopy}
+          />
+        </CardContent>
+
+        {/* Content Mobile */}
+        <CardContent className='flex-1 flex lg:hidden flex-row w-full justify-stretch space-x-2 p-6 overflow-hidden'>
+          <ContentMobile
+            markdown={markdown}
+            plainText={plainText}
+            handlePaste={handlePaste}
+            handleCopy={handleCopy}
+          />
         </CardContent>
       </Card>
     </div>

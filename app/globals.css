@@ -144,7 +144,7 @@
   position: absolute;
   width: 6px; /* 4px → 6px */
   height: 6px; /* 4px → 6px */
-  background: rgba(255, 193, 7, 0.4);
+  background: rgba(42, 181, 216, 0.562);
   border-radius: 50%;
   animation: float 4s ease-in-out infinite; /* 6s → 4s */
   pointer-events: none;

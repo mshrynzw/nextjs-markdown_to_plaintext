@@ -1,6 +1,6 @@
 {
-  "name": "TimePort v4 payroll",
-  "version": "4.00.0020",
+  "name": "Markdown To PlainText",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",

@@ -1,7 +1,7 @@
 {
-  "name": "TimePort - 給与計算システム",
-  "short_name": "TimePort",
-  "description": "効率的な給与計算を実現するTimePortシステム",
+  "name": "Markdown To PlainText",
+  "short_name": "Markdown To PlainText",
+  "description": "Markdown to PlainText converter",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -32,34 +32,10 @@
   ],
   "shortcuts": [
     {
-      "name": "打刻",
-      "short_name": "打刻",
-      "description": "勤怠の打刻を行います",
-      "url": "/member/dashboard",
-      "icons": [
-        {
-          "src": "/android-chrome-192x192.png",
-          "sizes": "192x192"
-        }
-      ]
-    },
-    {
-      "name": "勤怠管理",
-      "short_name": "勤怠管理",
-      "description": "勤怠の管理を行います",
-      "url": "/admin/attendance",
-      "icons": [
-        {
-          "src": "/android-chrome-192x192.png",
-          "sizes": "192x192"
-        }
-      ]
-    },
-    {
-      "name": "給与管理",
-      "short_name": "給与管理",
-      "description": "給与の管理を行います",
-      "url": "/admin/payroll",
+      "name": "Markdown to PlainText",
+      "short_name": "to PlainText",
+      "description": "Markdown to PlainText converter",
+      "url": "/",
       "icons": [
         {
           "src": "/android-chrome-192x192.png",

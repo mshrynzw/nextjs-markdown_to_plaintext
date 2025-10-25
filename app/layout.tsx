@@ -5,18 +5,19 @@ import { Inter } from 'next/font/google';
 
 import { Toaster } from '@/components/ui/toaster';
 import PwaScript from '@/components/common/PwaScript';
+import { ActiveTabProvider } from '@/contexts/active-tab-context';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'TimePort',
-  description: '効率的な勤怠管理を実現するWebアプリケーション',
+  title: 'Markdown To PlainText',
+  description: 'Markdown to PlainText converter',
   manifest: '/manifest.json',
-  applicationName: 'TimePort',
+  applicationName: 'Markdown To PlainText',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'TimePort',
+    title: 'Markdown To PlainText',
   },
   formatDetection: { telephone: false },
   icons: {
@@ -58,7 +59,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
         <link rel='mask-icon' href='/android-chrome-192x192.png' color='#0f172a' />
       </head>
       <body className={inter.className} suppressHydrationWarning>
-        {children}
+        <ActiveTabProvider>{children}</ActiveTabProvider>
         <Toaster />
         <PwaScript />
       </body>
