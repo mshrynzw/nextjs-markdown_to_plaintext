@@ -18,40 +18,64 @@ export default function Page() {
 
   const handlePaste = useCallback(async () => {
     try {
-      const text = await navigator.clipboard.readText();
-      setMarkdown(text);
-      setPlainText(markdownToPlainText(text));
-      setActiveTab('plaintext');
-      toast({
-        title: 'Markdown pasted',
-        description: 'Markdown has been pasted to the textarea',
-      });
+      // Check if clipboard API is available
+      if (navigator.clipboard && navigator.clipboard.readText) {
+        const text = await navigator.clipboard.readText();
+        setMarkdown(text);
+        setPlainText(markdownToPlainText(text));
+        setActiveTab('plaintext');
+        toast({
+          title: 'Markdown pasted',
+          description: 'Markdown has been pasted to the textarea',
+        });
+      } else {
+        // Fallback for iOS Safari/Chrome
+        toast({
+          title: 'Paste not supported',
+          description: 'Please manually paste your Markdown text into the textarea',
+          variant: 'destructive',
+        });
+      }
     } catch (err) {
       console.error('Failed to read clipboard contents: ', err);
       toast({
-        title: 'Failed to paste Markdown',
-        description: 'Failed to paste Markdown to the textarea',
+        title: 'Paste not supported',
+        description: 'Please manually paste your Markdown text into the textarea',
         variant: 'destructive',
       });
     }
-  }, []);
+  }, [setActiveTab, toast]);
 
   const handleCopy = useCallback(async () => {
     try {
-      await navigator.clipboard.writeText(plainText);
-      toast({
-        title: 'PlainText copied',
-        description: 'PlainText has been copied to the clipboard',
-      });
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(plainText);
+        toast({
+          title: 'PlainText copied',
+          description: 'PlainText has been copied to the clipboard',
+        });
+      } else {
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = plainText;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        toast({
+          title: 'PlainText copied',
+          description: 'PlainText has been copied to the clipboard',
+        });
+      }
     } catch (err) {
       console.error('Failed to copy text: ', err);
       toast({
-        title: 'Failed to copy PlainText',
-        description: 'Failed to copy PlainText to the clipboard',
+        title: 'Copy not supported',
+        description: 'Please manually select and copy the text',
         variant: 'destructive',
       });
     }
-  }, [plainText]);
+  }, [plainText, toast]);
 
   return (
     <div className='h-screen relative overflow-hidden flex flex-col p-4'>
