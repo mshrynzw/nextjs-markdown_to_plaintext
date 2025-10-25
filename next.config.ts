@@ -16,20 +16,20 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   // 使っているなら残す
-  experimental: {
-    serverActions: {
-      allowedOrigins: ['localhost:3000', '*.vercel.app'],
-    },
-  },
+  // experimental: {
+  //   serverActions: {
+  //     allowedOrigins: ['localhost:3000', '*.vercel.app'],
+  //   },
+  // },
 
-  // ビルド/実行に影響しない範囲の最適化は残してOK
-  eslint: { ignoreDuringBuilds: true },
-  compress: true,
-  poweredByHeader: false,
+  // // ビルド/実行に影響しない範囲の最適化は残してOK
+  // eslint: { ignoreDuringBuilds: true },
+  // compress: true,
+  // poweredByHeader: false,
 
-  async headers() {
-    return [{ source: '/(.*)', headers: securityHeaders }];
-  },
+  // async headers() {
+  //   return [{ source: '/(.*)', headers: securityHeaders }];
+  // },
 };
 
 export default nextConfig;
