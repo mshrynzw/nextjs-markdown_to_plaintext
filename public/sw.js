@@ -1,6 +1,6 @@
 // キャッシュ名にバージョンを含めて強制更新可能に
-const STATIC_CACHE_NAME = 'timeport-v4-static-v2';
-const DYNAMIC_CACHE_NAME = 'timeport-v4-dynamic-v2';
+const STATIC_CACHE_NAME = 'markdown-to-plaintext-static-v1';
+const DYNAMIC_CACHE_NAME = 'markdown-to-plaintext-dynamic-v1';
 
 const STATIC_FILES = [
   '/',
@@ -107,7 +107,7 @@ self.addEventListener('push', (event) => {
       const text = event.data.text();
       console.log('Push data (text):', text);
       data = {
-        title: '通知',
+        title: 'Notification',
         message: text,
         type: 'test',
         link_url: '/',
@@ -127,12 +127,12 @@ self.addEventListener('push', (event) => {
       actions: [
         {
           action: 'open',
-          title: '開く',
+          title: 'Open',
           icon: '/android-chrome-192x192.png',
         },
         {
           action: 'close',
-          title: '閉じる',
+          title: 'Close',
         },
       ],
       requireInteraction: data.priority === 'urgent',
