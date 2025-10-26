@@ -15,7 +15,7 @@ export default function ContentMobile({
   handleCopy,
   handleMarkdownChange,
 }: ContentMobileProps) {
-  const { activeTab, setActiveTab, markdown, plainText } = useApp();
+  const { activeTab, setActiveTab, markdown } = useApp();
 
   return (
     <Tabs
@@ -36,11 +36,7 @@ export default function ContentMobile({
         />
       </TabsContent>
       <TabsContent value='plaintext' className='flex-1 h-full overflow-hidden'>
-        <PlainTextArea
-          className='h-full custom-scrollbar'
-          plainText={plainText}
-          onCopy={handleCopy}
-        />
+        <PlainTextArea className='h-full custom-scrollbar' onCopy={handleCopy} />
       </TabsContent>
     </Tabs>
   );

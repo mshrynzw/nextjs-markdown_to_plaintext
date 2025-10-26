@@ -14,7 +14,7 @@ export default function ContentDesktop({
   handleCopy,
   handleMarkdownChange,
 }: ContentDesktopProps) {
-  const { markdown, plainText } = useApp();
+  const { markdown } = useApp();
   return (
     <>
       <div className='flex-1 w-1/2 h-full overflow-hidden'>
@@ -26,11 +26,7 @@ export default function ContentDesktop({
         />
       </div>
       <div className='flex-1 w-1/2 h-full overflow-hidden'>
-        <PlainTextArea
-          className='h-full custom-scrollbar'
-          plainText={plainText}
-          onCopy={handleCopy}
-        />
+        <PlainTextArea className='h-full custom-scrollbar' onCopy={handleCopy} />
       </div>
     </>
   );
