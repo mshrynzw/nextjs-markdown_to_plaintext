@@ -5,7 +5,7 @@ import { Inter } from 'next/font/google';
 
 import { Toaster } from '@/components/ui/toaster';
 import PwaScript from '@/components/common/PwaScript';
-import { ActiveTabProvider } from '@/contexts/active-tab-context';
+import { AppProvider } from '@/contexts/app-context';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -59,7 +59,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
         <link rel='mask-icon' href='/android-chrome-192x192.png' color='#0f172a' />
       </head>
       <body className={inter.className} suppressHydrationWarning>
-        <ActiveTabProvider>{children}</ActiveTabProvider>
+        <AppProvider>{children}</AppProvider>
         <Toaster />
         <PwaScript />
       </body>

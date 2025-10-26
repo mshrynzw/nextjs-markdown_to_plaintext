@@ -1,19 +1,20 @@
+import { useApp } from '@/contexts/app-context';
+
 import MarkdownTextArea from './MarkdownTextArea';
 import PlainTextArea from './PlainTextArea';
 
 interface ContentDesktopProps {
-  markdown: string;
-  plainText: string;
   handlePaste: () => void;
   handleCopy: () => void;
+  handleMarkdownChange: (value: string) => void;
 }
 
 export default function ContentDesktop({
-  markdown,
-  plainText,
   handlePaste,
   handleCopy,
+  handleMarkdownChange,
 }: ContentDesktopProps) {
+  const { markdown, plainText } = useApp();
   return (
     <>
       <div className='flex-1 w-1/2 h-full overflow-hidden'>
@@ -21,6 +22,7 @@ export default function ContentDesktop({
           className='h-full custom-scrollbar'
           markdown={markdown}
           onPaste={handlePaste}
+          onChange={handleMarkdownChange}
         />
       </div>
       <div className='flex-1 w-1/2 h-full overflow-hidden'>

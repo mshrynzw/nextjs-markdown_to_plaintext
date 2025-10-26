@@ -1,6 +1,6 @@
 'use client';
 import { FileType2 } from 'lucide-react';
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 
 import Particles from '@/components/common/Particles';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,13 +8,20 @@ import ContentDesktop from '@/components/app/ContentDesktop';
 import ContentMobile from '@/components/app/ContentMobile';
 import { markdownToPlainText } from '@/lib/markdown/to-plain-text';
 import { useToast } from '@/hooks/use-toast';
-import { useActiveTab } from '@/contexts/active-tab-context';
+import { useApp } from '@/contexts/app-context';
 
 export default function Page() {
-  const [markdown, setMarkdown] = useState('');
-  const [plainText, setPlainText] = useState('');
-  const { setActiveTab } = useActiveTab();
+  const { setMarkdown, plainText, setPlainText, setActiveTab } = useApp();
   const { toast } = useToast();
+
+  const handleMarkdownChange = useCallback(
+    (value: string) => {
+      setMarkdown(value);
+      setPlainText(markdownToPlainText(value));
+      setActiveTab('plaintext');
+    },
+    [setMarkdown, setPlainText, setActiveTab, toast]
+  );
 
   const handlePaste = useCallback(async () => {
     try {
@@ -44,7 +51,7 @@ export default function Page() {
         variant: 'destructive',
       });
     }
-  }, [setActiveTab, toast]);
+  }, [setMarkdown, setPlainText, setActiveTab, toast]);
 
   const handleCopy = useCallback(async () => {
     try {
@@ -111,20 +118,18 @@ export default function Page() {
         {/* Converter Desktop */}
         <CardContent className='flex-1 hidden lg:flex flex-row w-full justify-stretch space-x-2 p-6 overflow-hidden'>
           <ContentDesktop
-            markdown={markdown}
-            plainText={plainText}
             handlePaste={handlePaste}
             handleCopy={handleCopy}
+            handleMarkdownChange={handleMarkdownChange}
           />
         </CardContent>
 
         {/* Content Mobile */}
         <CardContent className='flex-1 flex lg:hidden flex-row w-full justify-stretch space-x-2 p-6 overflow-hidden'>
           <ContentMobile
-            markdown={markdown}
-            plainText={plainText}
             handlePaste={handlePaste}
             handleCopy={handleCopy}
+            handleMarkdownChange={handleMarkdownChange}
           />
         </CardContent>
       </Card>

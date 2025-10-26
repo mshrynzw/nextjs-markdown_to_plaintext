@@ -1,23 +1,21 @@
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { useActiveTab } from '@/contexts/active-tab-context';
+import { useApp } from '@/contexts/app-context';
 
 import MarkdownTextArea from './MarkdownTextArea';
 import PlainTextArea from './PlainTextArea';
 
 interface ContentMobileProps {
-  markdown: string;
-  plainText: string;
   handlePaste: () => void;
   handleCopy: () => void;
+  handleMarkdownChange: (value: string) => void;
 }
 
 export default function ContentMobile({
-  markdown,
-  plainText,
   handlePaste,
   handleCopy,
+  handleMarkdownChange,
 }: ContentMobileProps) {
-  const { activeTab, setActiveTab } = useActiveTab();
+  const { activeTab, setActiveTab, markdown, plainText } = useApp();
 
   return (
     <Tabs
@@ -34,6 +32,7 @@ export default function ContentMobile({
           className='h-full custom-scrollbar'
           markdown={markdown}
           onPaste={handlePaste}
+          onChange={handleMarkdownChange}
         />
       </TabsContent>
       <TabsContent value='plaintext' className='flex-1 h-full overflow-hidden'>

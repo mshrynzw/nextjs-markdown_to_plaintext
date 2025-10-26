@@ -1,14 +1,15 @@
 import { Copy } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
+import { useApp } from '@/contexts/app-context';
 
 interface PlainTextAreaProps {
   className?: string;
-  plainText: string;
   onCopy: () => void;
 }
 
-export default function PlainTextArea({ className, plainText, onCopy }: PlainTextAreaProps) {
+export default function PlainTextArea({ className, onCopy }: PlainTextAreaProps) {
+  const { plainText } = useApp();
   return (
     <div className='flex flex-col space-y-2 w-full h-full'>
       <Button

@@ -14,7 +14,7 @@ export function markdownToPlainText(markdown: string): string {
 
   // --- コードブロック ---
   text = text.replace(/```(\w+)?\n([\s\S]*?)```/g, (_m, lang, code) => {
-    const header = `──────── コードブロック${lang ? `（${lang}）` : ''} ────────`;
+    const header = `──────── \`\`\`${lang ? `（${lang}）` : ''} \`\`\` ────────`;
     const footer = '──────────────────────────────';
     return `\n${header}\n${code.trim()}\n${footer}\n`;
   });
@@ -27,12 +27,9 @@ export function markdownToPlainText(markdown: string): string {
     .replace(/^###### (.*)$/gm, '───── $1 ─────')
     .replace(/^##### (.*)$/gm, '──── $1 ────')
     .replace(/^#### (.*)$/gm, '─── $1 ───')
-    .replace(/^### (.*)$/gm, '─── 見出し: $1 ───')
-    .replace(/^## (.*)$/gm, '── $1 ──')
-    .replace(
-      /^# (.*)$/gm,
-      '────────────────────────────\n【見出し】$1\n────────────────────────────'
-    );
+    .replace(/^### (.*)$/gm, '─── $1 ───')
+    .replace(/^## (.*)$/gm, '── # $1 ──')
+    .replace(/^# (.*)$/gm, '────────────────────────────\n # $1\n────────────────────────────');
 
   // --- 太字・斜体・取り消し線 ---
   text = text
@@ -68,20 +65,18 @@ export function markdownToPlainText(markdown: string): string {
   });
 
   // --- 区切り線 ---
-  text = text.replace(/^(-{3,}|\*{3,})$/gm, '────────────────────────────\n');
+  text = text.replace(/^(-{3,}|\*{3,})$/gm, '────────────────────────────');
 
   // --- リンク・画像 ---
   text = text
-    .replace(/!\[([^\]]*)\]\(([^)\s]+)(?:\s"([^"]+)")?\)/g, '$2 （説明: $3）')
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$2 （$1）');
+    .replace(/!\[([^\]]*)\]\(([^)\s]+)(?:\s"([^"]+)")?\)/g, '$2 ($3)')
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$2 ($1)');
 
   // --- HTMLタグの削除 ---
   text = text.replace(/<\/?[^>]+(>|$)/g, '');
 
   // --- 脚注 ---
-  text = text
-    .replace(/\[\^(\d+)\]: (.*)/g, '[脚注$1] $2')
-    .replace(/\[\^(\d+)\]/g, '（脚注参照: $1）');
+  text = text.replace(/\[\^(\d+)\]: (.*)/g, '[^$1] $2').replace(/\[\^(\d+)\]/g, '[^$1]');
 
   // --- 余分な空行・スペースを整形 ---
   text = text
