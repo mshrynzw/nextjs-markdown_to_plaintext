@@ -24,12 +24,12 @@ export function markdownToPlainText(markdown: string): string {
 
   // --- 見出し ---
   text = text
-    .replace(/^###### (.*)$/gm, '───── $1 ─────')
-    .replace(/^##### (.*)$/gm, '──── $1 ────')
-    .replace(/^#### (.*)$/gm, '─── $1 ───')
-    .replace(/^### (.*)$/gm, '─── $1 ───')
-    .replace(/^## (.*)$/gm, '── # $1 ──')
-    .replace(/^# (.*)$/gm, '────────────────────────────\n # $1\n────────────────────────────');
+    .replace(/^###### (.*)$/gm, '───── ● $1')
+    .replace(/^##### (.*)$/gm, '──── ● $1')
+    .replace(/^#### (.*)$/gm, '─── ● $1')
+    .replace(/^### (.*)$/gm, '── ● $1')
+    .replace(/^## (.*)$/gm, '■ $1')
+    .replace(/^# (.*)$/gm, '──────────────\n ■ $1\n──────────────');
 
   // --- 太字・斜体・取り消し線 ---
   text = text
@@ -65,7 +65,7 @@ export function markdownToPlainText(markdown: string): string {
   });
 
   // --- 区切り線 ---
-  text = text.replace(/^(-{3,}|\*{3,})$/gm, '────────────────────────────');
+  text = text.replace(/^(-{3,}|\*{3,})$/gm, '──────────────');
 
   // --- リンク・画像 ---
   text = text
